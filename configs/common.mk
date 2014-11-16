@@ -50,3 +50,9 @@ PRODUCT_COPY_FILES += \
 
 # Common overlays
 PRODUCT_PACKAGE_OVERLAYS += vendor/io/overlays/common
+
+# Backuptool support
+PRODUCT_COPY_FILES += \
+    vendor/io/prebuilts/addon.d/50-infinitive.sh:system/addon.d/50-infinitive.sh \
+    vendor/io/prebuilts/bin/backuptool.functions:system/bin/backuptool.functions \
+    vendor/io/prebuilts/bin/backuptool.sh:system/bin/backuptool.sh
