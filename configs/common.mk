@@ -34,6 +34,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/vendor/media/LMspeed_508.emd:system/vendor/media/LMspeed_508.emd \
     $(LOCAL_PATH)/vendor/media/PFFprec_600.emd:system/vendor/media/PFFprec_600.emd
 
+# World APN list
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/etc/apns-conf.xml:system/etc/apns-conf.xml
+
 # Bootanimation 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/bootanimation.zip:system/media/bootanimation.zip
