@@ -1,0 +1,45 @@
+# Versioning of InfinitiveOS
+
+# InfinitiveOS Release Version
+IO_VERSION_MAJOR = 1
+IO_VERSION_MINOR = 0
+IO_VERSION_MAINTENANCE = 
+
+VERSION := $(IO_VERSION_MAJOR).$(IO_VERSION_MINOR)$(IO_VERSION_MAINTENANCE)
+
+ifdef BUILDTYPE_NIGHTLY
+    IO_BUILDTYPE := NIGHTLY
+endif
+ifdef BUILDTYPE_OFFICIAL
+    IO_BUILDTYPE := OFFICIAL
+endif
+ifdef BUILDTYPE_EXPERIMENTAL
+    IO_BUILDTYPE := EXPERIMENTAL
+endif
+ifdef BUILDTYPE_RELEASE
+    IO_BUILDTYPE := RELEASE
+endif
+
+ifndef IO_BUILDTYPE
+    IO_BUILDTYPE := UNOFFICIAL
+endif
+
+TARGET_PRODUCT_SHORT := $(TARGET_PRODUCT)
+TARGET_PRODUCT_SHORT := $(subst io_,,$(TARGET_PRODUCT_SHORT))
+
+# Build the final version string
+ifdef BUILDTYPE_RELEASE
+    IO_VERSION := $(VERSION)-$(TARGET_PRODUCT_SHORT)
+else
+ifeq ($(IO_BUILDTIME_LOCAL),y)
+    IO_VERSION := InfinitiveOS-v$(VERSION)-$(shell date +%Y%m%d-%H%M%z)-$(TARGET_PRODUCT_SHORT)-$(IO_BUILDTYPE)
+else
+    IO_VERSION := InfinitiveOS-v$(VERSION)-$(shell date -u +%Y%m%d)-$(TARGET_PRODUCT_SHORT)-$(IO_BUILDTYPE)
+endif
+endif
+
+# For Build.prop
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.modversion=$(IO_VERSION) \
+    ro.io.version=$(VERSION)-$(IO_BUILDTYPE)
+
